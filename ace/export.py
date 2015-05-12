@@ -25,22 +25,22 @@ def export_database(db, filename, metadata=True, groups=False, size=False, stati
             		fields += [a.title, a.authors, a.year, a.journal]
                 if groups:
                     if isinstance(p.groups, basestring):
-                        p.groups = [p.groups]
+                        groups_tmp = [p.groups]
                     elif p.groups is None:
-                        p.groups = []
-                    fields += ['///'.join(p.groups).encode('utf-8')]
+                        groups_tmp = []
+                    fields += ['///'.join(groups_tmp).encode('utf-8')]
                 if size:
                     if isinstance(p.size, basestring):
-                        p.size = [p.size]
+                        size_tmp = [p.size]
                     elif p.size is None:
-                        p.size = []
-                    fields += ['///'.join(p.size).encode('utf-8')]
+                        size_tmp = []
+                    fields += ['///'.join(size_tmp).encode('utf-8')]
                 if statistic:
                     if isinstance(p.statistic, basestring):
-                        p.statistic = [p.statistic]
+                        statistic_tmp = [p.statistic]
                     elif p.statistic is None:
-                        p.statistic = []
-                    fields += ['///'.join(p.statistic).encode('utf-8')]
+                        statistic_tmp = []
+                    fields += ['///'.join(statistic_tmp).encode('utf-8')]
                 res.append('\t'.join(str(x) for x in fields))
 
     open(filename, 'w').write('\n'.join(res))
