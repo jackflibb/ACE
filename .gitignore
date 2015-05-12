@@ -8,4 +8,5 @@ tmp
 tmp/*
 *.csv
 *.sqlite
+*.sqlite-journal
 *.csv#
