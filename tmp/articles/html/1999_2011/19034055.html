@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+<html>
+
+
+
+<head>
+
+
+
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+
+
+
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+
+
+
+<title>Wolters Kluwer Health - Article Landing Page</title>
+
+
+
+<link rel="stylesheet" type="text/css" href="lpstyles.css">
+
+
+
+<script src="lpjscript.js"></script>
+
+
+
+</head>
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+<script>
+
+
+
+<!--
+
+
+
+//analyze cookie to see if client wants automatic redirection, then do it
+
+
+
+if ( getCookie(WKCookieName)=='ovid' || getCookie(WKCookieName)=='lww' )
+
+
+
+{
+
+
+
+	//user has WKRedirect cookie, expose redirect message
+
+
+
+	document.write('<style>.Redir {display: block;}</style>')
+
+
+
+
+
+
+
+	//tracking <img>, based on user having cookie and what product redirected
+
+
+
+	document.write('<img src=' + getCookie(WKCookieName) + 'lpwebbug.gif>');
+
+
+
+
+
+
+
+	//initiate auto redirect
+
+
+
+	ID = setTimeout("redirectSelection(getCookie(WKCookieName));",redirectDelay);
+
+
+
+}
+
+
+
+else
+
+
+
+{
+
+
+
+	//make visible main WK product selection text and links
+
+
+
+	document.write('<style>.forkcontainer{visibility: visible;}</style>');
+
+
+
+	document.write('<img src=lpwebbug.gif>');//tracking <img>, user no cookie condition
+
+
+
+}
+
+
+
+// -->
+
+
+
+</script>
+
+
+
+
+
+
+
+<!-- Displayed for auto redirection condition -->
+
+
+
+<div id="Redir" class="Redir">
+
+
+
+<table>
+
+
+
+<tr>
+
+
+
+<td><img src="wkhealth_logo.gif" alt="WK Health"></td>
+
+
+
+<td>
+
+
+
+<strong>Redirecting you to your preferred WK Health source,
+
+
+
+<script>
+
+
+
+<!--
+
+
+
+//Inform user to which product they are being auto redirected to
+
+
+
+if ( getCookie(WKCookieName)=='ovid' )
+
+
+
+{
+
+
+
+	document.write('<em>Ovid Gateway</em>, ');
+
+
+
+}
+
+
+
+else if (getCookie(WKCookieName)=='lww' )
+
+
+
+{
+
+
+
+	document.write('<em>LWWonline</em>, ');
+
+
+
+}
+
+
+
+// -->
+
+
+
+</script>
+
+
+
+ one moment please.</strong>
+
+
+
+<p>
+
+
+
+&nbsp; &#149; <!--<a href="javascript:redirectSelection(getCookie(WKCookieName));" onMouseOver="window.status='Go now';return true" onMouseOut="window.status='';return true">Click here to go now</a>-->
+
+
+
+<br>
+
+
+
+&nbsp; &#149; <a href="javascript:changePreferredWKSource();" onMouseOver="window.status='Change preferred WK Health source';return true" onMouseOut="window.status='';return true">Click here to change your preferred WK Health source</a>
+
+
+
+</td>
+
+
+
+</tr>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- For browsers that do not support javascript or have it disabled,
+
+
+
+the <noscript> text and default links will be  displayed.
+
+
+
+-->
+
+
+
+<noscript>
+
+
+
+<img src="wkhealth_logo.gif" alt="WK Health"><br>
+
+
+
+<h2>Select a Wolters Kluwer Source</h2>
+
+
+
+
+
+
+
+The article you have selected is available through multiple Wolters Kluwer Health sources.<br>
+
+
+
+Select your preferred source by clicking one of the links below:
+
+
+
+<p> Institutional subscribers and Athens users can access their full-text articles
+
+  via the <a href="http://gateway.ovid.com">Ovid Gateway</a>
+
+<p>
+
+
+
+Society and individual subscribers can access their full-text articles via
+
+
+
+ <a href="http://www.lwwonline.com">LWWOnline</a>
+
+
+
+<p><img src="nojslpwebbug.gif" alt="-">
+
+
+
+</noscript>
+
+
+
+
+
+
+
+<!-- Main landing page treatments-->
+
+
+
+<div id="forkcontainer" class="forkcontainer">
+
+
+
+	<div id="fork-hdr">
+
+
+
+		<span class="fork-hdr-title">Select a Wolters Kluwer Source</span>
+
+
+
+		<span>The article you have selected is available through<br/>
+
+
+
+		multiple	Wolters Kluwer Health sources.</span>
+
+
+
+		<span class="fork-hdr-instruct">Select your preferred full-text source by clicking one of the buttons below:</span>
+
+
+
+	</div>
+
+
+
+	<div id="fork-main">
+
+
+
+
+
+    <div id="fork-left"> Institutional subscribers and Athens users can access
+      their full-text articles by clicking the OvidSP and Athens button below:
+      <a href="javascript:redirectSelection('ovid');" onMouseOver="window.status='Ovid';return true" onMouseOut="window.status='';return true"><img src="ovid_but.gif" class="button" ></a>
+    </div>
+
+
+
+		<div id="fork-right">
+
+
+
+			<span>Society and individual subscribers can access their full-text articles by clicking the LWW button below:</span><br><br>
+
+
+
+			<a href="javascript:redirectSelection('lww');" onMouseOver="window.status='LWWOnline';return true" onMouseOut="window.status='';return true"><img src="lww_but.gif"  class="button"></a>
+
+
+
+		</div>
+
+
+
+	</div>
+
+
+
+	<div style="clear:both; "></div>
+
+
+
+	<div id="fork-footer">
+
+
+
+	<form name="persistRedirectSelection">
+
+
+
+		<input type="Checkbox" name="persist"> Remember this selection in the future.
+
+
+
+	</form>
+
+
+
+	</div>
+
+
+
+</div>
+
+
+
+<img src="xpick.gif" alt="-" name="manualpick" id="manualpick">
+
+
+
+</body>
+
+
+
+</html>
+
+
+

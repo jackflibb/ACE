@@ -268,4 +268,74 @@ class Scraper:
                     sleep_time = random() * float(delay*2)
                     sleep(sleep_time)
 
+    def retrieve_journal_articles_by_id(self, ids, ids_designation='ids', delay=None, mode='browser', search=None,
+                                limit=None, overwrite=False, min_pmid=None, save_metadata=True):
+
+        ''' Try to retrieve all PubMed articles for a single journal that don't 
+        already exist in the storage directory.
+        Args:
+            journal: The name of the journal (as it appears in PubMed).
+            delay: Mean delay between requests.
+            mode: When 'browser', use selenium to load articles in Chrome. When 
+                'direct', attempts to fetch the HTML directly via requests module.
+            search: An optional search string to append to the PubMed query.
+                Primarily useful for journals that are not specific to neuroimaging.
+            limit: Optional max number of articles to fetch. Note that only new articles 
+                are counted against this limit; e.g., if limit = 100 and 2,000 articles 
+                are found in PubMed, retrieval will continue until 100 new articles 
+                have been added.
+            overwrite: When True, all articles returned from PubMed query will be 
+                fetched, irrespective of whether or not they already exist on disk.
+            min_pmid: When a PMID is provided, only articles with PMIDs greater than 
+                this will be processed. Primarily useful for excluding older articles 
+                that aren't available in full-text HTML format.
+            save_metadata: When True, retrieves metadata from PubMed and saves it to 
+                the pubmed/ folder below the root storage folder.
+        '''
+        self.delay = delay
+        self.mode = mode
+        self.search = search
+        shuffle(ids)
+        logger.info("Found %d records.\n" % len(ids))
+
+        # Make directory if it doesn't exist
+        journal_path = os.path.join(self.store, 'html', ids_designation)
+        if not os.path.exists(journal_path):
+            os.makedirs(journal_path)
+
+        articles_found = 0
+
+        for id in ids:
+
+            metadata = get_pubmed_metadata(id)
+
+            if 'journal' in metadata:
+                self.journal = metadata['journal']
+            else:
+                self.journal = 'unknown'
+
+            if min_pmid is not None and int(id) < min_pmid: continue
+            if limit is not None and articles_found >= limit: break
+            
+            logger.info("Processing %s..." % id)
+            filename = '%s/%s.html' % (journal_path, id)
+
+            if not overwrite and os.path.isfile(filename): 
+                logger.info("\tAlready exists! Skipping...")
+                continue
+
+            # Save the HTML
+            doc = self.get_html_by_pmid(id)
+            if doc:
+                outf = open(filename, 'w')
+                # Still having encoding issues with some journals (e.g., 
+                # PLoS ONE). Why???
+                outf.write(doc.encode('utf-8'))
+                outf.close()
+                articles_found += 1
+
+                # Insert random delay until next request.
+                if delay is not None:
+                    sleep_time = random() * float(delay*2)
+                    sleep(sleep_time)
 

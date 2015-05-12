@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def export_database(db, filename, metadata=True, groups=False):
+def export_database(db, filename, metadata=True, groups=False, size=False, statistic=False):
 
     res = ['id\tdoi\tx\ty\tz\tspace\tpeak_id\ttable_id\ttable_num']
 
@@ -29,6 +29,18 @@ def export_database(db, filename, metadata=True, groups=False):
                     elif p.groups is None:
                         p.groups = []
                     fields += ['///'.join(p.groups).encode('utf-8')]
+                if size:
+                    if isinstance(p.size, basestring):
+                        p.size = [p.size]
+                    elif p.size is None:
+                        p.size = []
+                    fields += ['///'.join(p.size).encode('utf-8')]
+                if statistic:
+                    if isinstance(p.statistic, basestring):
+                        p.statistic = [p.statistic]
+                    elif p.statistic is None:
+                        p.statistic = []
+                    fields += ['///'.join(p.statistic).encode('utf-8')]
                 res.append('\t'.join(str(x) for x in fields))
 
     open(filename, 'w').write('\n'.join(res))
