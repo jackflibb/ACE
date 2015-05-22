@@ -13,6 +13,10 @@ def export_database(db, filename, metadata=True, groups=False, size=False, stati
 
     if groups:
         res[0] += '\tgroups'
+    if size:
+        res[0] += '\tsize'
+    if statistic:
+        res[0] += '\tstatistic'
 
     articles = db.session.query(Article).filter(Article.tables.any()).all()
     for a in articles:
