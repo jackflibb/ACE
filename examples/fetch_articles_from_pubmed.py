@@ -11,8 +11,6 @@ from ace.scrape import *
 import ace
 from ace import database
 
-
-
 # journals = {
 #     'Neuroimage': {
 #         'delay': 20,  # Mean delay between article downloads--prevents the banhammer
