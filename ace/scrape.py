@@ -313,6 +313,7 @@ class Scraper:
                 self.journal = metadata['journal']
             else:
                 self.journal = 'unknown'
+            logger.info("\tJournal is: " + self.journal)
 
             if min_pmid is not None and int(id) < min_pmid: continue
             if limit is not None and articles_found >= limit: break

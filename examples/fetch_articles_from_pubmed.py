@@ -134,18 +134,27 @@ ids = [
 "18633805",
 "19406906"]
 
+# ids = [
+# "19228430"]
+
 ids_designation='1999_2011'
 
 scraper.retrieve_journal_articles_by_id(ids,mode='direct',ids_designation=ids_designation,delay=1)
 
 # Uncomment the next line to seem more information
-ace.set_logging_level('info')
+ace.set_logging_level('debug')
 
 # Change this to a valid path to a set of html files.
 PATH_TO_FILES = output_dir + "/html/" + ids_designation + "/*.html"
+meta_dir = './tmp/meta'
+if not os.path.exists(meta_dir):
+	os.makedirs(meta_dir)
+table_dir = './tmp/table'
+if not os.path.exists(table_dir):
+	os.makedirs(table_dir)
 
 db = database.Database('example_db.sqlite')
-db.add_articles(PATH_TO_FILES)
+db.add_articles(PATH_TO_FILES,pmid_filenames=True,metadata_dir=meta_dir,table_dir=table_dir)
 db.print_stats()
 
 
