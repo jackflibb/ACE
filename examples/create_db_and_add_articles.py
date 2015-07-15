@@ -16,12 +16,11 @@ ace.set_logging_level('info')
 cd /home/jflournoy/Documents/NeuroDebian/code/metanal/ACE
 PATH_TO_FILES = "./tmp/articles/html/ids/*.html"
 
-db = database.Database('example_db.sqlite')
+db = database.Database(adapter='sqlite',db_name='sqlite:///example_db.sqlite')
 #db.add_articles(PATH_TO_FILES)
 db.print_stats()
 
-
-export.export_database(db,'exported_data.csv',groups=True,size=True,statistic=True)
+export.export_database(db,'exported_data_2.csv',groups=True,size=True,statistic=True)
 
 for article in db.session.query(Article).filter(Article.tables.any()).all():
 	for t in article.tables:

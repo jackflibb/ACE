@@ -7,7 +7,7 @@ SILENT_ERRORS = False
 
 ''' DATABASE SETTINGS '''
 # Adapter to use--either 'mysql' or 'sqlite'
-SQL_ADAPTER = 'mysql'
+SQL_ADAPTER = 'sqlite'
 
 # SQLite path (when using sqlite adapter)
 SQLITE_URI = 'sqlite:///ace.db'
