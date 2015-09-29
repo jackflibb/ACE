@@ -209,7 +209,9 @@ class Source:
         delay = self.delay if hasattr(self, 'delay') else 0
 
         if self.table_dir is not None:
-            filename = '%s/%s' % (self.table_dir, url.replace('/', '_'))
+            nice_url = url.replace('/', '_')
+            nice_url = nice_url.replace(':', '_')
+            filename = '%s/%s' % (self.table_dir, nice_url)
             if os.path.exists(filename):
                 table_html = open(filename).read().decode('utf-8')
             else:
