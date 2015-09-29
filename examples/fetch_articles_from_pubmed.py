@@ -175,11 +175,14 @@ ids_designation='2012_2014'
 
 scraper.retrieve_journal_articles_by_id(ids,mode='direct',ids_designation=ids_designation,delay=1)
 
+scraper.retrieve_journal_articles_by_id(["20816974"], mode='direct', ids_designation='test', delay=1)
+
 # Uncomment the next line to seem more information
 ace.set_logging_level('debug')
 
 # Change this to a valid path to a set of html files.
 PATH_TO_FILES = output_dir + "/html/" + ids_designation + "/*.html"
+PATH_TO_FILES = output_dir + "/html/" + "test" + "/*.html"
 meta_dir = './tmp/meta'
 if not os.path.exists(meta_dir):
 	os.makedirs(meta_dir)
@@ -188,12 +191,19 @@ if not os.path.exists(table_dir):
 	os.makedirs(table_dir)
 
 
-db = database.Database(adapter='sqlite',db_name='sqlite:///example_db_2012.sqlite')
+db = database.Database(adapter='sqlite',db_name='sqlite:///example_db_test.sqlite')
 db.add_articles(PATH_TO_FILES,pmid_filenames=True,metadata_dir=meta_dir,table_dir=table_dir)
 db.print_stats()
 
-a_file = output_dir + "/html/" + ids_designation + "/14527602.html"
-db.add_articles(a_file,pmid_filenames=True,metadata_dir=meta_dir,table_dir=table_dir)
-
 db.save()
 
+f=output_dir + "/html/" + "test" + "/20816974.html"
+
+html = open(f).read()
+html = html.decode('utf-8')   # Make sure we're working with unicode
+
+html = self.decode_html_entities(html)
+soup = BeautifulSoup(html)
+doi = self.extract_doi(soup)
+pmid = self.extract_pmid(soup) if pmid is None else pmid
+metadata = scrape.get_pubmed_metadata(pmid, store=metadata_dir, save=True)
