@@ -308,7 +308,18 @@ class ScienceDirectSource(Source):
         return super(ScienceDirectSource, self).parse_table(table)
 
     def extract_doi(self, soup):
-        return soup.find('a', {'id': 'ddDoi'})['href'].replace('http://dx.doi.org/', '')
+        try:
+            found = soup.find('a', {'id': 'ddDoi'})['href'].replace('http://dx.doi.org/', '')
+        except TypeError: 
+            found = ''
+
+        if found == '':
+            try: 
+                someText = soup.find(text=re.compile('SDM\.doi = '))
+                found = re.search('SDM.doi = \'(.+?)\'', someText).group(1)
+            except AttributeError:
+                found = ''
+        return found
 
     def extract_pmid(self, soup):
         return scrape.get_pmid_from_doi(self.extract_doi(soup))
