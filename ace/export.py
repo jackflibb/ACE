@@ -28,6 +28,7 @@ def export_database(db, filename, metadata=True, groups=False, size=False, stati
             	if metadata:
             		fields += [a.title, a.authors, a.year, a.journal]
                 if groups:
+                    groups_tmp = []
                     if isinstance(p.groups, basestring):
                         groups_tmp = [p.groups]
                     elif p.groups is None:
