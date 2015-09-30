@@ -211,6 +211,7 @@ class Source:
         if self.table_dir is not None:
             nice_url = url.replace('/', '_')
             nice_url = nice_url.replace(':', '_')
+            nice_url = nice_url.replace('?', '_')
             filename = '%s/%s' % (self.table_dir, nice_url)
             if os.path.exists(filename):
                 table_html = open(filename).read().decode('utf-8')
